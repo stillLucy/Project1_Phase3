@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movies For You</title>
+  </head>
+  <body>
+    <div id="main_con">
+      <h2>Start Search</h2>
+
+      <input type="text" id="movie_search" />
+
+      <p>Short or Full plot?</p>
+
+      <form id="form">
+        <input type="radio" id="full" name="plot_length" value="full" />
+        <label for="full">Full Plot</label><br />
+
+        <input type="radio" id="short" name="plot_length" value="short" />
+        <label for="short">Short Plot</label><br />
+      </form>
+
+      <button type="button" id="button">Click Here</button>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

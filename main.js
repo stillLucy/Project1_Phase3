@@ -3,7 +3,8 @@
 const apiKey = import.meta.env.VITE_API_KEY;
 async function getData(inputVal, plotLen) {
   const resp = await fetch(
-    'https://www.omdbapi.com/?i=tt3896198&apikey=5ca0070c',
+    // eslint-disable-next-line no-template-curly-in-string
+    'https://www.omdbapi.com/?s=${inputVal}&plot=short&apikey=${apiKey}',
   );
   const data = await resp.json();
   // eslint-disable-next-line no-console
@@ -17,7 +18,8 @@ async function getData(inputVal, plotLen) {
     // eslint-disable-next-line no-console
     console.log(`this is data: ${searchRes[i].Title}`);
 
-    const plotUrl = 'https://www.omdbapi.com/?i=tt3896198&apikey=5ca0070c';
+    // eslint-disable-next-line no-template-curly-in-string
+    const plotUrl = 'https://www.omdbapi.com/?s=${inputVal}&plot=short&apikey=${apiKey}';
     // eslint-disable-next-line no-console
     console.log(`this is your plotURl ${plotUrl}`);
     const plotResp = fetch(`${plotUrl}`);
