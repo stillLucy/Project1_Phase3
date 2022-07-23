@@ -1,30 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
   <head>
-    <meta charset="UTF-8" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movies For You</title>
+    <meta charset="utf-8">
+    <title>Movie Locator</title>
+<script defer src="script.js"></script>
   </head>
+  <h1> Movie Search<h1>
+<p>Please Enter Information</p>
   <body>
-    <div id="main_con">
-      <h2>Start Search</h2>
-
-      <input type="text" id="movie_search" />
-
-      <p>Short or Full plot?</p>
-
-      <form id="form">
-        <input type="radio" id="full" name="plot_length" value="full" />
-        <label for="full">Full Plot</label><br />
-
-        <input type="radio" id="short" name="plot_length" value="short" />
-        <label for="short">Short Plot</label><br />
-      </form>
-
-      <button type="button" id="button">Click Here</button>
-    </div>
-
-    <script type="module" src="/main.js"></script>
+<div id="error"></div>
+<form id= "form" action= "results.html"  method="GET">
+<div>
+<label for="api">API</label>
+<input id="api" name="api" type="string" required>
+</div>
+  Select
+<div>
+<label for="title">Title</label>
+<input id="title" name="select" type="radio" value="title">
+</div>
+<div>
+<label for="imdb">IMDB</label>
+<input id="imdb" name="select" type="radio" value="imdb">
+</div>
+  <p>Type Answer Here. After Selecting (Title/IMDB)</p>
+  <div>
+<label for="select">Select</label>
+<input id="select" name="select" type="string"
+</div>
+<div>
+<label for="year">Year</label>
+<input id="year" name="year" type="number" max=2022
+</div>
+Plot? 
+<div>
+<label for="short">Short</label>
+<input id="short" name="plot" type="radio" value="short">
+</div>
+<div>
+<label for="long">Long</label>
+<input id="long" name="plot" type="radio" value="long">
+</div>
+<button type="reset">Reset</button>
+    <button type="submit">Submit</button>
+</form>
   </body>
 </html>
