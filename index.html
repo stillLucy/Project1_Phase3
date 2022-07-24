@@ -1,48 +1,36 @@
-<!DOCTYPE html>
 <html lang="en-US">
   <head>
     <meta charset="utf-8">
     <title>Movie Locator</title>
 <script defer src="script.js"></script>
   </head>
-  <h1> Movie Search<h1>
-<p>Please Enter Information</p>
   <body>
-<div id="error"></div>
-<form id= "form" action= "results.html"  method="GET">
-<div>
-<label for="api">API</label>
-<input id="api" name="api" type="string" required>
-</div>
-  Select
-<div>
+	<div class="container">
+		<form id="form" action= "/">
+		<h1> Movie Search </h1>
+<div class="form-control">
 <label for="title">Title</label>
-<input id="title" name="select" type="radio" value="title">
+<input id="title" name="title" type="text" required>
+<div class="error">
 </div>
-<div>
-<label for="imdb">IMDB</label>
-<input id="imdb" name="select" type="radio" value="imdb">
-</div>
-  <p>Type Answer Here. After Selecting (Title/IMDB)</p>
-  <div>
-<label for="select">Select</label>
-<input id="select" name="select" type="string"
-</div>
-<div>
+  
+  
+<div class="form-control">
 <label for="year">Year</label>
-<input id="year" name="year" type="number" max=2022
+<input id="year" name="year" type="number" max=2022>
 </div>
-Plot? 
-<div>
-<label for="short">Short</label>
-<input id="short" name="plot" type="radio" value="short">
+  
+  <div class="form-control">
+<label for="imdb">IMDB</label>
+<input id="imdb" name="imdb" type="text"> 
 </div>
-<div>
-<label for="long">Long</label>
-<input id="long" name="plot" type="radio" value="long">
-</div>
+  <div>
 <button type="reset">Reset</button>
     <button type="submit">Submit</button>
+  </div>
 </form>
   </body>
 </html>
+
+
+
