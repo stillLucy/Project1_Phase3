@@ -1,36 +1,55 @@
-<html lang="en-US">
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Movie Locator</title>
-<script defer src="script.js"></script>
   </head>
   <body>
-	<div class="container">
-		<form id="form" action= "/">
-		<h1> Movie Search </h1>
-<div class="form-control">
-<label for="title">Title</label>
-<input id="title" name="title" type="text" required>
-<div class="error">
-</div>
-  
-  
-<div class="form-control">
-<label for="year">Year</label>
-<input id="year" name="year" type="number" max=2022>
-</div>
-  
-  <div class="form-control">
-<label for="imdb">IMDB</label>
-<input id="imdb" name="imdb" type="text"> 
-</div>
-  <div>
-<button type="reset">Reset</button>
-    <button type="submit">Submit</button>
-  </div>
-</form>
+    <header>
+      <h1>Movie Search</h1>
+    </header>
+    <section class="summary">
+      <form class="form" id="form">
+        <div class="card">
+          <h3 class="h3">Search</h3>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <!-- <input type="text" name="title" id="title" required onkeyup="findMovies()" /> -->
+            <input
+              type="title"
+              name="title"
+              id="title"
+              required
+              onkeyup="findMovies()"
+              onclick="findMovies()"
+            />
+
+            <div class="search-title" id="search-title"></div>
+            <div class="search-title" id="search-imdID"></div>
+            <div class="search-title" id="search-year"></div>
+          </div>
+          <div class="form-group">
+            <label for="imdbID">Imdb Id</label>
+            <input type="imdbID" name="imdbID" id="imdbID" />
+          </div>
+          <div class="form-group">
+            <label for="year">Year</label>
+            <input type="year" name="year" id="year" onkeyup="findMovies()" />
+          </div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      <!-- result container -->
+      <div class="container">
+        <div class="result-container">
+          <div class="result-grid" id="result-grid"></div>
+        </div>
+      </div>
+    </section>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
-
-
-

@@ -1,151 +1,94 @@
-import .meta.env.VITE_API_KEY 
+// eslint-disable-next-line no-unused-expressions
+import.meta.env.VITE_API_KEY;
 
-//Search Options
-const form = document.getElementById('form')
-const title = document.getElementById('title');
-const year = document.getElementById('year');
-const imdb = document.getElementByyId('imdb');
-const input = document.getElementByyId('input');
-const errorElement = document.getElementById('error')
+async function getData(inputVal, titleLen) {
+  const resp = await fetch(
 
-// Show Success
-function showSuccess(input) {
-formControl = input.parentElement;
-formControl.className = 'form-control success';
-//Event Listener
-form.addEventListener('submit', (e) => {
-let messages = []
+    // eslint-disable-next-line no-undef
+    `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=VITE_API_KEY`,
+  );
 
-if (title.value === '') {
-messages.push("Title is required");
-} else {
-showSuccess(title);
+  const data = await resp.json();
 
-}
-if (year.value >=2023) {
-messages.push("Please Select Relevant Year");
-} else {
-showSuccess(year);
+  // eslint-disable-next-line no-console
+  console.log(data);
+  const searchRes = data.Search;
 
-e. preventDefault()
-errorElement.innerText = messages.join(', ')
+  // eslint-disable-next-line no-console
+  console.log(searchRes);
 
-}
-})
-//Load Movies From OMDB API
+  // eslint-disable-next-line no-console
+  console.log(`this is your title: ${titleLen}`);
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < searchRes.length; i++) {
+    // eslint-disable-next-line no-console
+    console.log(`this is data: ${searchRes[i].Title}`);
 
+    // eslint-disable-next-line no-undef
+    const titleUrl = `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=VITE_API_KEY`;
 
-async function loadMovies(searchTerm) {
-  const URL = `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=VITE_API_KEY`;
-  const res = await fetch(`${URL}`);
-  const data = await res.json();
-  //   console.log(data.Search);
-  if (data.Response == "True") displayMovieList(data.Search);
-}
+    // eslint-disable-next-line no-console
+    console.log(`this is your titleURl ${titleUrl}`);
+    const titleResp = fetch(`${titleUrl}`);
+    const titleData = titleResp.json();
 
-function findMovies() {
-    
-  let searchTerm = 
-const title = title.value.trim()
+    // eslint-disable-next-line no-console
+    console.log(titleData.title);
 
-    let searchTermYear = 
-const year = year.value.trim();
-    
-  let searchTermId = 
-const imdb = imdb.value.trim();
+    // eslint-disable-next-line no-console
+    console.log(titleData.Ratings);
 
- //searchTerm
-  if (searchTerm.length > 0) {
-    searchTitle.classList.remove("hide-list");
-    loadMovies(searchTerm);
-  } else {
-    searchTitle.classList.add("hide-list");
+    const ratings = titleData.Ratings;
+
+    // eslint-disable-next-line no-shadow, no-plusplus
+    for (let i = 0; i < ratings.length; i++) {
+      // eslint-disable-next-line no-console
+      console.log(`${ratings[i].Source} : ${ratings[i].Value}`);
+      const maincon2 = document.getElementById('main_con');
+      const rating = document.createElement('p');
+      rating.textContent = `${ratings[i].Source} : ${ratings[i].Value}`;
+      maincon2.appendChild(rating);
+    }
+
+    // console.log(Search.Title)
+    const mainCon = document.getElementById('main_con');
+    // console.log(data.Search[i])
+
+    const imgCont = document.createElement('div');
+    const imgTag = document.createElement('img');
+    const movieID = document.createElement('p');
+    const title = document.createElement('p');
+    const year = document.createElement('p');
+
+    imgTag.src = searchRes[i].Poster;
+    imgTag.setAttribute('style', 'width: 500px');
+
+    title.textContent = searchRes[i].Title;
+    movieID.textContent = searchRes[i].imdbID;
+    year.textContent = searchRes[i].Year;
+    title.textContent = titleData.title;
+
+    imgCont.appendChild(imgTag);
+
+    mainCon.appendChild(title);
+    mainCon.appendChild(movieID);
+    mainCon.appendChild(year);
+    mainCon.appendChild(imgCont);
   }
-  //searchTermYear
-  if (searchTermYear.length > 0) {
-    searchYear.classList.remove("hide-list");
-    loadMovies(searchTermYear);
-  } else {
-    searchYear.classList.add("hide-list");
-  }
 }
 
-function displayMovieList(movies) {
-  searchTitle.textContent = "";
-  for (let idx = 0; idx < movies.length; idx++) {
-    let movieListItem = document.createElement("div");
-    movieListItem.dataset.id = movies[idx].imdbID; 
-    movieListItem.classList.add("list-item");
-    if (movies[idx].Poster != "N/A") moviePoster = movies[idx].Poster;
-    else moviePoster = "image_not_found.png";
+const button = document.getElementById('button');
+button.addEventListener('click', (e) => {
+  e.preventDefault();
+  const inputVal = document.getElementById('movie_search').value;
 
-    movieListItem.textContent = `
-        <div class = "search-item-thumbnail">
-            <img src = "${moviePoster}">
-        </div>
-        <div class = "search-item-info">
-            <h3>${movies[idx].Title}</h3>
-            <p>${movies[idx].Year}</p>
-        </div>
-        `;
-    searchTitle.appendChild(movieListItem);
-    searchYear.appendChild(movieListItem);
-  }
-  loadMovieDetails();
-}
+  const title = document.querySelector(
+    'input[type=radio][name=title_length]:checked',
+  );
+  const titleLen = title.value;
 
-function loadMovieDetails() {
-  const searchListMovies = searchTitle.querySelectorAll(".list-item");
-  searchListMovies.forEach((movie) => {
-    movie.addEventListener("click", async () => {
-      // console.log(movie.dataset.id);
-      searchTitle.classList.add("hide-list");
-      searchYear.classList.add("hide-list");
-      movieTitle.value = "";
-      const result = await fetch(
-        `http://www.omdbapi.com/?i=${movie.dataset.id}&apikey=VITE_API_KEY`
-      );
-      const movieDetails = await result.json();
-      // console.log(movieDetails);
-      displayMovieDetails(movieDetails);
-    });
-  });
-}
-
-function displayMovieDetails(details) {
-  resultGrid.textContent = `
-    <div class = "movie-poster">
-        <img src = "${
-          details.Poster != "N/A" ? details.Poster : "image_not_found.png"
-        }" alt = "movie poster">
-    </div>
-    <div class = "movie-information">
-        <h3 class = "movie-title">${details.Title}</h3>
-        <ul class = "movie-misc-info">
-            <li class = "year">Year: ${details.Year}</li>
-            <li class = "rated">Ratings: ${details.Rated}</li>
-            <li class = "released">Released: ${details.Released}</li>
-        </ul>
-        <p class = "genre"><b>Genre:</b> ${details.Genre}</p>
-        <p class = "writer"><b>Writer:</b> ${details.Writer}</p>
-        <p class = "actors"><b>Actors: </b>${details.Actors}</p>
-        <p class = "plot"><b>Plot:</b> ${details.Plot}</p>
-        <p class = "language"><b>Language:</b> ${details.Language}</p>
-        <p class = "awards"><b><i class = "fas fa-award"></i></b> ${
-          details.Awards
-        }</p>
-    </div>
-    `;
-}
-
-window.addEventListener("click", (event) => {
-  if (event.target.className != "form-control") {
-    searchTitle.classList.add("hide-list");
-    searchYear.classList.add("hide-list");
-  }
+  // eslint-disable-next-line no-console
+  console.log(`this is title length 3: ${titleLen}`);
+  getData(inputVal, titleLen);
+  // getData(titleLen);
 });
-
-
-	}
-})
-
