@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-expressions
-import.meta.env.VITE_API_KEY;
+import.meta.env.API_KEY;
 
 async function getData(inputVal, titleLen) {
   const resp = await fetch(
 
     // eslint-disable-next-line no-undef
-    `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=VITE_API_KEY`,
+    'http://www.omdbapi.com/?i=tt3896198&apikey=5ca0070c',
   );
 
   const data = await resp.json();
@@ -24,12 +24,13 @@ async function getData(inputVal, titleLen) {
     // eslint-disable-next-line no-console
     console.log(`this is data: ${searchRes[i].Title}`);
 
-    // eslint-disable-next-line no-undef
-    const titleUrl = `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=VITE_API_KEY`;
+    // eslint-disable-next-line no-undef, vars-on-top, no-var, block-scoped-var
+    var url = `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=VITE_API_KEY`;
 
-    // eslint-disable-next-line no-console
-    console.log(`this is your titleURl ${titleUrl}`);
-    const titleResp = fetch(`${titleUrl}`);
+    // eslint-disable-next-line no-console, block-scoped-var
+    console.log(`this is your URL ${url}`);
+    // eslint-disable-next-line block-scoped-var
+    const titleResp = fetch(`${url}`);
     const titleData = titleResp.json();
 
     // eslint-disable-next-line no-console
@@ -50,31 +51,54 @@ async function getData(inputVal, titleLen) {
       maincon2.appendChild(rating);
     }
 
-    // console.log(Search.Title)
-    const mainCon = document.getElementById('main_con');
-    // console.log(data.Search[i])
+    // eslint-disable-next-line global-require
+    require('dotenv').config();
+    // eslint-disable-next-line no-console
+    console.log(process.env);
 
-    const imgCont = document.createElement('div');
-    const imgTag = document.createElement('img');
-    const movieID = document.createElement('p');
-    const title = document.createElement('p');
-    const year = document.createElement('p');
+    // eslint-disable-next-line vars-on-top, no-var
+    var input;
 
-    imgTag.src = searchRes[i].Poster;
-    imgTag.setAttribute('style', 'width: 500px');
+    // eslint-disable-next-line vars-on-top, no-var, no-redeclare
+    var url = 'api + movie + apiKey';
+    // eslint-disable-next-line no-undef
+    const button = select('#submit');
+    // eslint-disable-next-line no-undef
+    button.mousePressed(titleAsk);
 
-    title.textContent = searchRes[i].Title;
-    movieID.textContent = searchRes[i].imdbID;
-    year.textContent = searchRes[i].Year;
-    title.textContent = titleData.title;
-
-    imgCont.appendChild(imgTag);
-
-    mainCon.appendChild(title);
-    mainCon.appendChild(movieID);
-    mainCon.appendChild(year);
-    mainCon.appendChild(imgCont);
+    // eslint-disable-next-line no-unused-vars, no-undef
+    input = select('#movie');
   }
+
+  // console.log(Search.Title)
+  const mainCon = document.getElementById('main_con');
+  // console.log(data.Search[i])
+
+  const imgCont = document.createElement('div');
+  const imgTag = document.createElement('img');
+  const movieID = document.createElement('p');
+  const title = document.createElement('p');
+  const year = document.createElement('p');
+
+  // eslint-disable-next-line no-undef
+  imgTag.src = searchRes[i].Poster;
+  imgTag.setAttribute('style', 'width: 500px');
+
+  // eslint-disable-next-line no-undef
+  title.textContent = searchRes[i].Title;
+  // eslint-disable-next-line no-undef
+  movieID.textContent = searchRes[i].imdbID;
+  // eslint-disable-next-line no-undef
+  year.textContent = searchRes[i].Year;
+  // eslint-disable-next-line no-undef
+  title.textContent = titleData.title;
+
+  imgCont.appendChild(imgTag);
+
+  mainCon.appendChild(title);
+  mainCon.appendChild(movieID);
+  mainCon.appendChild(year);
+  mainCon.appendChild(imgCont);
 }
 
 const button = document.getElementById('button');
