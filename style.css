@@ -1,12 +1,12 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 
 
   color: rgba(255, 255, 255, 0.87);
-  background-color: #3c1e1e;
+  background-color: #cc4343;
 
 
   text-rendering: optimizeLegibility;
@@ -24,7 +24,7 @@ a:hover {
 }
   
   body {
-  background-color:#242424 ;
+  background-color:#4eb6ba ;
   font-family: 'Open Sans', sans-serif;
   display: flex;
   align-items: center;
@@ -42,7 +42,7 @@ a:hover {
   
   }
   .header {
-  background-color:blue ;
+  background-color:rgb(26, 83, 39) ;
   border-bottom: 1px solid blue;
   padding: 20px 40px;
   }
