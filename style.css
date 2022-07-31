@@ -1,14 +1,14 @@
 :root {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 
+  color-scheme: light dark;
+  color: rgba(98, 214, 102, 0.87);
+  background-color: #242424;
 
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #cc4343;
-
-
+  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,27 +22,39 @@ a {
 a:hover {
   color: #1923e6;
 }
-  
-  body {
-  background-color:#4eb6ba ;
-  font-family: 'Open Sans', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+
+body {
   margin: 0;
-  }
-  
-  .container {
-  background-color:#cd4699;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  width: 400px;
-  max-width: 100%;
-  
-  }
-  .header {
-  background-color:rgb(26, 83, 39) ;
-  border-bottom: 1px solid blue;
-  padding: 20px 40px;
-  }
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #474db6aa);
+}
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #22aa68aa);
+}
+
+.card {
+  padding: 2em;
+}
