@@ -9,6 +9,10 @@ const search = (ev) => {
   const imdb= document.querySelector("#imdb").value;
   const url = `https://www.omdbapi.com/?t=${title}&y=${year}&imdb=${imdb}&apikey=5ca0070c`;
 
+  //const api_key = process.env.API_KEY;
+
+  //require('dotenv').config();
+
   console.log(url);
   fetch(url)
     .then((response) => response.json())
