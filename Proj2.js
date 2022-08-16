@@ -1,74 +1,94 @@
-const APIURL =
-    "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1";
-const IMGPATH = "https://image.tmdb.org/t/p/w1280";
-const SEARCHAPI =
-    "https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=";
+const movieSearchBox = document.getElementById('movie-search-box');
+const searchList = document.getElementById('search-list');
+const resultGrid = document.getElementById('result-grid');
 
-const main = document.getElementById("main");
-const form = document.getElementById("form");
-const search = document.getElementById("search");
 
-// initially get fav movies
-getMovies(APIURL);
+//add listeners
 
-async function getMovies(url) {
-    const resp = await fetch(url);
-    const respData = await resp.json();
 
-    console.log(respData);
-
-    showMovies(respData.results);
+// load movies from API
+async function loadMovies(searchTerm){
+    const URL = `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=5ca0070c`;
+    const res = await fetch(`${URL}`);
+    const data = await res.json();
+    // console.log(data.Search);
+    if(data.Response == "True") displayMovieList(data.Search);
 }
 
-function showMovies(movies) {
-    // clear main
-    main.innerHTML = "";
+function findMovies(){
+    let searchTerm = (movieSearchBox.value).trim();
+    if(searchTerm.length > 0){
+        searchList.classList.remove('hide-search-list');
+        loadMovies(searchTerm);
+    } else {
+        searchList.classList.add('hide-search-list');
+    }
+}
 
-    movies.forEach((movie) => {
-        const { poster_path, title, vote_average, overview } = movie;
+function displayMovieList(movies){
+    searchList.innerHTML = "";
+    for(let idx = 0; idx < movies.length; idx++){
+        let movieListItem = document.createElement('div');
+        movieListItem.dataset.id = movies[idx].imdbID; // setting movie id in  data-id
+        movieListItem.classList.add('search-list-item');
+        if(movies[idx].Poster != "N/A")
+            moviePoster = movies[idx].Poster;
+        else 
+            moviePoster = "image_not_found.png";
 
-        const movieEl = document.createElement("div");
-        movieEl.classList.add("movie");
-
-        movieEl.innerHTML = `
-            <img
-                src="${IMGPATH + poster_path}"
-                alt="${title}"
-            />
-            <div class="movie-info">
-                <h3>${title}</h3>
-                <span class="${getClassByRate(
-                    vote_average
-                )}">${vote_average}</span>
-            </div>
-            <div class="overview">
-                <h3>Overview:</h3>
-                ${overview}
-            </div>
+        movieListItem.innerHTML = `
+        <div class = "search-item-thumbnail">
+            <img src = "${moviePoster}">
+        </div>
+        <div class = "search-item-info">
+            <h3>${movies[idx].Title}</h3>
+            <p>${movies[idx].Year}</p>
+        </div>
         `;
+        searchList.appendChild(movieListItem);
+    }
+    loadMovieDetails();
+}
 
-        main.appendChild(movieEl);
+function loadMovieDetails(){
+    const searchListMovies = searchList.querySelectorAll('.search-list-item');
+    searchListMovies.forEach(movie => {
+        movie.addEventListener('click', async () => {
+            // console.log(movie.dataset.id);
+            searchList.classList.add('hide-search-list');
+            movieSearchBox.value = "";
+            const result = await fetch(`http://www.omdbapi.com/?i=${movie.dataset.id}&apikey=5ca0070c`);
+            const movieDetails = await result.json();
+            // console.log(movieDetails);
+            displayMovieDetails(movieDetails);
+        });
     });
 }
 
-function getClassByRate(vote) {
-    if (vote >= 8) {
-        return "green";
-    } else if (vote >= 5) {
-        return "orange";
-    } else {
-        return "red";
-    }
+function displayMovieDetails(details){
+    resultGrid.innerHTML = `
+    <div class = "movie-poster">
+        <img src = "${(details.Poster != "N/A") ? details.Poster : "image_not_found.png"}" alt = "movie poster">
+    </div>
+    <div class = "movie-info">
+        <h3 class = "movie-title">${details.Title}</h3>
+        <ul class = "movie-misc-info">
+            <li class = "year">Year: ${details.Year}</li>
+            <li class = "rated">Ratings: ${details.Rated}</li>
+            <li class = "released">Released: ${details.Released}</li>
+        </ul>
+      
+    </div>
+    `;
 }
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
+//Define Likes
 
-    const searchTerm = search.value;
 
-    if (searchTerm) {
-        getMovies(SEARCHAPI + searchTerm);
-
-        search.value = "";
+window.addEventListener('click', (event) => {
+    if(event.target.className != "form-control"){
+        searchList.classList.add('hide-search-list');
     }
 });
+
+//Add and Remove Favorites; instruction at 20 minute mark https://www.youtube.com/watch?v=X8h7PgkM4QQ&t=1381
