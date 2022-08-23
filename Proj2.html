@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- custom css -->
     <link rel = "stylesheet" href = "Proj2.css">
+    <!-- custom Favorite css-->
+   <!-- <link rel="import" href="favorites.css">-->
+    <!--Like icon-->
+
 </head>
 <body>
     
@@ -27,6 +31,8 @@
                 <input type = "text" class = "form-control" placeholder="Search Movie Title ..." id = "movie-search-box" onkeyup="findMovies()" onclick = "findMovies()">
 
                 <div class = "search-list" id = "search-list">
+
+                    
                     <!-- list here -->
                     <!-- <div class = "search-list-item">
                         <div class = "search-item-thumbnail">
@@ -41,7 +47,7 @@
             </div>
         </div>
         <!-- end of search container -->
-
+       
         <!-- result container -->
         <div class = "container">
             <div class = "result-container">
@@ -64,8 +70,21 @@
         </div>
         <!-- end of result container -->
     </div>
+    <div class="container">
+        <label for="comment" name="comment">Movie Note</label>
+        <textarea id="comment" rows="4" cols="20" Required="required" ></textarea>
+<body>
+ <div class = "container2">
+    <div class = "favorite-container">
+        <div class = "favorite-grid" id = "favorite-grid">
+</div>   
+<button id="viewComment">View</button>
+<div id="allComments"></div>
+</body> 
 
-
+        <footer> 
+            <button type="button"> <img src="https://www.citypng.com/public/uploads/preview/-11591575670zhgmhzajtp.png" height ="40" width="80" /></button>
+</footer>
     <!-- movie app js -->
     <script src = "Proj2.js"></script>
 </body>
